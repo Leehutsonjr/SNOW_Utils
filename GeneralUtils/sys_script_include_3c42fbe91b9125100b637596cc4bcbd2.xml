@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unload unload_date="2023-03-02 16:04:18">
+<sys_script_include action="INSERT_OR_UPDATE">
+<access>package_private</access>
+<active>true</active>
+<api_name>global.GeneralUtils</api_name>
+<caller_access/>
+<client_callable>true</client_callable>
+<description>A general utility of script includes</description>
+<name>GeneralUtils</name>
+<script><![CDATA[var GeneralUtils = Class.create();
+GeneralUtils.prototype = Object.extendsObject(AbstractAjaxProcessor, {
+
+    showRitm: function() {
+		gs.info('showRitm has run!');
+		var ritm = this.getParameter('sysparm_ritm');
+        var g = new GlideRecord('sc_req_item');
+		g.get(ritm);
+		gs.addInfoMessage('The ritm number is: ' + g.number);
+
+    },
+
+	getRitm: function() {
+		gs.info('getRitm has run!');
+
+		var arr_obj = [];
+
+		var ritm = this.getParameter('sysparm_ritm');
+
+        var g = new GlideRecord('sc_req_item');
+		g.get(ritm);
+
+		//create object
+		var obj = {};
+		obj.number = g.number.getDisplayValue();
+		obj.cat_item = g.cat_item.getDisplayValue();
+
+		//Push to array
+		arr_obj.push(obj);
+
+		return JSON.stringify(arr_obj);
+
+		//This url helped
+		//https://www.servicenow.com/community/developer-forum/client-script-returning-object-object-on-field/m-p/1447789
+    },
+
+    type: 'GeneralUtils'
+});]]></script>
+<sys_class_name>sys_script_include</sys_class_name>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2023-03-01 00:53:31</sys_created_on>
+<sys_id>3c42fbe91b9125100b637596cc4bcbd2</sys_id>
+<sys_mod_count>21</sys_mod_count>
+<sys_name>GeneralUtils</sys_name>
+<sys_package display_value="Global" source="global">global</sys_package>
+<sys_policy/>
+<sys_scope display_value="Global">global</sys_scope>
+<sys_update_name>sys_script_include_3c42fbe91b9125100b637596cc4bcbd2</sys_update_name>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2023-03-01 23:57:22</sys_updated_on>
+</sys_script_include>
+</unload>
